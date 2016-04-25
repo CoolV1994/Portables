@@ -69,17 +69,17 @@ public class LinkBlockListener implements Listener {
                                     .getString("portables." + event.getMaterial().name() + ".Name")));
                     return;
                 }
-                if (Utils.isNotAuthorized(event.getPlayer(), event.getClickedBlock())) {
-                    event.getPlayer().sendMessage(InvManager.blockLocked
-                            .replace("{block}", Plugin.getInstance().getConfig()
-                                    .getString("portables." + event.getMaterial().name() + ".Name")));
-                    return;
-                }
                 if (!Utils.canHostInWorld(event.getClickedBlock().getWorld())) {
                     event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
                             Plugin.getInstance().getConfig().getString("hostWorldNotAllowed"))
                             .replace("{block}", Plugin.getInstance().getConfig()
                                     .getString("portables." + hand.name() + ".Name")));
+                    return;
+                }
+                if (Utils.isNotAuthorized(event.getPlayer(), event.getClickedBlock())) {
+                    event.getPlayer().sendMessage(InvManager.blockLocked
+                            .replace("{block}", Plugin.getInstance().getConfig()
+                                    .getString("portables." + event.getMaterial().name() + ".Name")));
                     return;
                 }
                 event.setCancelled(true);
