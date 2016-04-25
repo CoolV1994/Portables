@@ -23,7 +23,7 @@ public class InvShortcutListener implements Listener {
         private final List<Material> usePortables;
 
 	public InvShortcutListener(Plugin plugin) {
-            usePortables = new ArrayList<>();
+            usePortables = new ArrayList<Material>();
             for (Material portable : Plugin.getPortables()) {
                 if (plugin.getConfig().getBoolean("portables." + portable + ".InvShortcut")) {
                     usePortables.add(portable);

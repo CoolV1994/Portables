@@ -22,7 +22,7 @@ public class PowerToolListener implements Listener {
         private final List<Material> usePortables;
 
 	public PowerToolListener(Plugin plugin) {
-            usePortables = new ArrayList<>();
+            usePortables = new ArrayList<Material>();
             for (Material portable : Plugin.getPortables()) {
                 if (plugin.getConfig().getBoolean("portables." + portable + ".PowerTool")) {
                     usePortables.add(portable);

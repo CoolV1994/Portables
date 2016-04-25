@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +43,8 @@ public class Plugin extends JavaPlugin {
 	}
 
 	private void loadPortableItems() {
-            portables = new ArrayList<>();
-            altPortables = new HashMap<>();
+            portables = new ArrayList<Material>();
+            altPortables = new EnumMap<Material, List<Material>>(Material.class);
             /*List<String> items = getConfig().getStringList("portables");
             System.out.println("Portables: " + items);
             for (String item : items) {
@@ -73,7 +74,7 @@ public class Plugin extends JavaPlugin {
                     getLogger().log(Level.INFO, "Portable Item: {0}", portable.name());
                     portables.add(portable);
 
-                    List<Material> altBlocks = new ArrayList<>();
+                    List<Material> altBlocks = new ArrayList<Material>();
                     List<String> alts = getConfig().getStringList("portables." + portable.name() + ".AltBlocks");
                     if (alts == null || alts.isEmpty()) {
                         altPortables.put(portable, altBlocks);

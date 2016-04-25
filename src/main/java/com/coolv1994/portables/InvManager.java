@@ -51,7 +51,7 @@ public class InvManager {
                         ChatColor.translateAlternateColorCodes('&',
                                 Plugin.getInstance().getConfig().getString(
                                         "portables." + item.getType().name() + ".LinkedName")));
-		ArrayList<String> lore = new ArrayList<>();
+		ArrayList<String> lore = new ArrayList<String>();
 		lore.add("W:" + location.getWorld().getName());
 		lore.add("X:" + location.getX());
 		lore.add("Y:" + location.getY());

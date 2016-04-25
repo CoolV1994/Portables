@@ -21,7 +21,7 @@ public class LinkBlockListener implements Listener {
         private final List<Material> usePortables;
 
 	public LinkBlockListener(Plugin plugin) {
-            usePortables = new ArrayList<>();
+            usePortables = new ArrayList<Material>();
             for (Material portable : Plugin.getPortables()) {
                 if (plugin.getConfig().getBoolean("portables." + portable + ".Link")) {
                     usePortables.add(portable);
