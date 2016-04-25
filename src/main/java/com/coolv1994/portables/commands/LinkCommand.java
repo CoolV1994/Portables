@@ -60,6 +60,26 @@ public class LinkCommand implements CommandExecutor {
                                     .getString("portables." + looking.name() + ".Name")));
                     return true;
                 }
+                if (!Utils.canUseInWorld(player.getWorld())) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            Plugin.getInstance().getConfig().getString("worldNotAllowed"))
+                            .replace("{block}", Plugin.getInstance().getConfig()
+                                    .getString("portables." + hand.name() + ".Name")));
+                    return true;
+                }
+                if (!Utils.canHostInWorld(target.getWorld())) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            Plugin.getInstance().getConfig().getString("hostWorldNotAllowed"))
+                            .replace("{block}", Plugin.getInstance().getConfig()
+                                    .getString("portables." + hand.name() + ".Name")));
+                    return true;
+                }
+                if (!Utils.isInRange(player.getLocation(), target.getLocation())) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            Plugin.getInstance().getConfig().getString("outOfRange"))
+                            .replace("{range}", String.valueOf(Utils.range)));
+                    return true;
+                }
                 if (Utils.isNotAuthorized(player, target)) {
                     player.sendMessage(InvManager.blockLocked
                             .replace("{block}", Plugin.getInstance().getConfig()

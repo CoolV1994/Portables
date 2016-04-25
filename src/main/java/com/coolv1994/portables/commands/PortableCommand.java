@@ -5,6 +5,7 @@ import com.coolv1994.portables.Plugin;
 import com.coolv1994.portables.Utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -63,6 +64,21 @@ public class PortableCommand implements CommandExecutor {
                 if (Utils.canSkip(player.getItemInHand()))
                     return true;
 
+                if (Utils.doesNotHavePermission(player, hand.name(), 2)) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            Plugin.getInstance().getConfig().getString("noPermCommand"))
+                            .replace("{block}", Plugin.getInstance().getConfig()
+                                    .getString("portables." + hand.name() + ".Name")));
+                    return true;
+                }
+                if (!Utils.canUseInWorld(player.getWorld())) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            Plugin.getInstance().getConfig().getString("worldNotAllowed"))
+                            .replace("{block}", Plugin.getInstance().getConfig()
+                                    .getString("portables." + hand.name() + ".Name")));
+                    return true;
+                }
+
                 if (Material.WORKBENCH.equals(hand)) {
                     player.openWorkbench(null, true);
                     return true;
@@ -73,8 +89,24 @@ public class PortableCommand implements CommandExecutor {
                 }
 
                 Location location = InvManager.loreToLoc(player.getItemInHand().getItemMeta());
-                if (location == null)
+                if (location == null) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            Plugin.getInstance().getConfig().getString("invalidLocation")));
                     return true;
+                }
+                if (!Utils.canHostInWorld(location.getWorld())) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            Plugin.getInstance().getConfig().getString("hostWorldNotAllowed"))
+                            .replace("{block}", Plugin.getInstance().getConfig()
+                                    .getString("portables." + hand.name() + ".Name")));
+                    return true;
+                }
+                if (!Utils.isInRange(player.getLocation(), location)) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            Plugin.getInstance().getConfig().getString("outOfRange"))
+                            .replace("{range}", String.valueOf(Utils.range)));
+                    return true;
+                }
 
                 InvManager.openItem(hand, player, location);
 		return true;

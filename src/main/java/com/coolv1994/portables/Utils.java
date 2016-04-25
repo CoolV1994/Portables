@@ -6,13 +6,13 @@ import me.crafter.mc.lockettepro.LocketteProAPI;
 import org.yi.acru.bukkit.Lockette.Lockette;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import org.bukkit.Location;
 
 /**
  *

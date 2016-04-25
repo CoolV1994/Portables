@@ -1,7 +1,9 @@
 package com.coolv1994.portables;
 
-import com.coolv1994.portables.commands.*;
-import com.coolv1994.portables.listeners.InvSeeListener;
+import com.coolv1994.portables.commands.EnderChestCommand;
+import com.coolv1994.portables.commands.LinkCommand;
+import com.coolv1994.portables.commands.PortableCommand;
+import com.coolv1994.portables.commands.WorkBenchCommand;
 import com.coolv1994.portables.listeners.InvShortcutListener;
 import com.coolv1994.portables.listeners.LinkBlockListener;
 import com.coolv1994.portables.listeners.NameItemListener;
@@ -123,11 +125,9 @@ public class Plugin extends JavaPlugin {
 		getCommand("workbench").setExecutor(new WorkBenchCommand());
 		if (!getConfig().getBoolean("portables.WORKBENCH.CommandPerm"))
 			getCommand("workbench").setPermission(null);
-                getCommand("invsee").setExecutor(new InvSeeCommand());
 	}
 
 	private void enableListeners() {
-                getServer().getPluginManager().registerEvents(new InvSeeListener(this), this);
 		getServer().getPluginManager().registerEvents(new InvShortcutListener(this), this);
 		getServer().getPluginManager().registerEvents(new PowerToolListener(this), this);
 		getServer().getPluginManager().registerEvents(new LinkBlockListener(this), this);
