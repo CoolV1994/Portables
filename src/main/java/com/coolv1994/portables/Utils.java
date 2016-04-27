@@ -7,12 +7,14 @@ import org.yi.acru.bukkit.Lockette.Lockette;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import org.bukkit.util.NumberConversions;
 
 /**
  *
@@ -29,18 +31,28 @@ public class Utils {
     public static boolean doesNotHavePermission(Player player, String item, int action) {
         // Link Item
         if (action == 1) {
-            return Plugin.getInstance().getConfig().getBoolean(item + ".LinkPerm") &&
+            return Plugin.getInstance().getConfig().getBoolean("permLink") &&
                     !player.hasPermission("portables." + item + ".link");
         }
         // PowerTool
         if (action == 2) {
-            return Plugin.getInstance().getConfig().getBoolean(item + ".PowerToolPerm") &&
+            return Plugin.getInstance().getConfig().getBoolean("permPowerTool") &&
                     !player.hasPermission("portables." + item + ".powertool");
         }
         // Inv Shortcut
         if (action == 3) {
-            return Plugin.getInstance().getConfig().getBoolean(item + ".InvShortcutPerm") &&
+            return Plugin.getInstance().getConfig().getBoolean("permInvShortcut") &&
                     !player.hasPermission("portables." + item + ".invshortcut");
+        }
+        // Command
+        if (action == 4) {
+            return Plugin.getInstance().getConfig().getBoolean("permCommand") &&
+                    !player.hasPermission("portables." + item + ".command");
+        }
+        // Command Link
+        if (action == 5) {
+            return Plugin.getInstance().getConfig().getBoolean("permLinkCommand") &&
+                    !player.hasPermission("portables." + item + ".linkcommand");
         }
         return true;
     }
@@ -59,16 +71,34 @@ public class Utils {
         return hostWorlds.contains(world.getName());
     }
 
+    public static boolean isSameWorld(World item, World host) {
+        if (Plugin.getInstance().getConfig().getBoolean("forceSameWorld")) {
+            return item.getName().equals(host.getName());
+        }
+        return true;
+    }
+
+    public static double distanceSquared(Location loc1, Location loc2) {
+        return NumberConversions.square(loc1.getX() - loc2.getX()) +
+                NumberConversions.square(loc1.getY() - loc2.getY()) +
+                NumberConversions.square(loc1.getZ() - loc2.getZ());
+    }
+
+    public static double measureDistance(Location loc1, Location loc2) {
+        return Math.sqrt(distanceSquared(loc1, loc2));
+    }
+
     public static boolean isInRange(Location player, Location block) {
         if (range == -1) {
             return true;
         }
-        return player.distance(block) <= range;
+        //return player.distance(block) <= range;
+        return measureDistance(player, block) <= range;
     }
 
     public static boolean isNotAuthorized(Player player, Block block) {
         // Bypass lock
-        if (player.hasPermission("portables.bypasslock"))
+        if (player.hasPermission("portables.admin.bypasslock"))
             return false;
         // Deadbolt
         if (lockPlugin == 1)
@@ -107,17 +137,23 @@ public class Utils {
             if (!item.getItemMeta().hasLore())
                 return true;
             return !item.getItemMeta().getDisplayName().equals(
-                            ChatColor.translateAlternateColorCodes('&',
-                                    Plugin.getInstance().getConfig().getString(
-                                            "portables." + item.getType().name() + ".CraftedName")));
+                    getPhrase("portables." + item.getType().name() + ".CraftedName"));
         }
         if (!item.hasItemMeta())
             return false;
         if (!item.getItemMeta().hasDisplayName())
             return false;
         return item.getItemMeta().getDisplayName().equals(
-                ChatColor.translateAlternateColorCodes('&',
-                        Plugin.getInstance().getConfig().getString(
-                                "portables." + item.getType().name() + ".LinkedName")));
+                getPhrase("portables." + item.getType().name() + ".LinkedName"));
     }
+
+    public static String getPhrase(String id) {
+        String phrase = Plugin.getInstance().getConfig().getString(id);
+        return ChatColor.translateAlternateColorCodes('&', phrase);
+    }
+
+    public static String getPhraseBlock(String id, Material item) {
+        return getPhrase(id).replace("{block}", item.name());
+    }
+
 }

@@ -54,34 +54,19 @@ permissions:
         children:
             portables.ENDER_CHEST.command: true
             portables.WORKBENCH.command: true
-            portables.commandlinks: true
-            portables.commandopens: true
-    portables.powertools:
+    portables.useall:
         description: Gives all PowerTools permissions
         children:
-            portables.BREWING_STAND_ITEM.powertool: true
-            portables.CHEST.powertool: true
-            portables.DISPENSER.powertool: true
-            portables.DROPPER.powertool: true
-            portables.ENCHANTMENT_TABLE.powertool: true
-            portables.ENDER_CHEST.powertool: true
-            portables.FURNACE.powertool: true
-            portables.HOPPER.powertool: true
-            portables.WORKBENCH.powertool: true
-            portables.rename.powertool: true
-    portables.invshortcuts:
-        description: Gives all Inventory Shortcuts permissions
-        children:
-            portables.BREWING_STAND_ITEM.invshortcut: true
-            portables.CHEST.invshortcut: true
-            portables.DISPENSER.invshortcut: true
-            portables.DROPPER.invshortcut: true
-            portables.ENCHANTMENT_TABLE.invshortcut: true
-            portables.ENDER_CHEST.invshortcut: true
-            portables.FURNACE.invshortcut: true
-            portables.HOPPER.invshortcut: true
-            portables.WORKBENCH.invshortcut: true
-    portables.links:
+            portables.BREWING_STAND_ITEM.use: true
+            portables.CHEST.use: true
+            portables.DISPENSER.use: true
+            portables.DROPPER.use: true
+            portables.ENCHANTMENT_TABLE.use: true
+            portables.ENDER_CHEST.use: true
+            portables.FURNACE.use: true
+            portables.HOPPER.use: true
+            portables.WORKBENCH.use: true
+    portables.linkall:
         description: Gives all Linking permissions
         children:
             portables.BREWING_STAND_ITEM.link: true
@@ -91,98 +76,51 @@ permissions:
             portables.ENCHANTMENT_TABLE.link: true
             portables.FURNACE.link: true
             portables.HOPPER.link: true
-    portables.commandlinks:
-        description: Gives all Command Linking permissions
-        children:
-            portables.BREWING_STAND_ITEM.commandlink: true
-            portables.CHEST.commandlink: true
-            portables.DISPENSER.commandlink: true
-            portables.DROPPER.commandlink: true
-            portables.ENCHANTMENT_TABLE.commandlink: true
-            portables.FURNACE.commandlink: true
-            portables.HOPPER.commandlink: true
-    portables.commandopens:
-        description: Gives all Command Opening permissions
-        children:
-            portables.BREWING_STAND_ITEM.commandopen: true
-            portables.CHEST.commandopen: true
-            portables.DISPENSER.commandopen: true
-            portables.DROPPER.commandopen: true
-            portables.ENCHANTMENT_TABLE.commandopen: true
-            portables.ENDER_CHEST.commandopen: true
-            portables.FURNACE.commandopen: true
-            portables.HOPPER.commandopen: true
-            portables.WORKBENCH.commandopen: true
     portables.BREWING_STAND_ITEM.*:
         description: Gives all Brewing Stand permissions
         children:
             portables.BREWING_STAND_ITEM.link: true
-            portables.BREWING_STAND_ITEM.invshortcut: true
-            portables.BREWING_STAND_ITEM.powertool: true
-            portables.BREWING_STAND_ITEM.commandlink: true
-            portables.BREWING_STAND_ITEM.commandopen: true
+            portables.BREWING_STAND_ITEM.use: true
     portables.CHEST.*:
         description: Gives all Chest permissions
         children:
             portables.CHEST.link: true
-            portables.CHEST.invshortcut: true
-            portables.CHEST.powertool: true
-            portables.BREWING_STAND_ITEM.commandlink: true
-            portables.BREWING_STAND_ITEM.commandopen: true
+            portables.CHEST.use: true
     portables.DISPENSER.*:
         description: Gives all Dispenser permissions
         children:
             portables.DISPENSER.link: true
-            portables.DISPENSER.invshortcut: true
-            portables.DISPENSER.powertool: true
-            portables.DISPENSER.commandlink: true
-            portables.DISPENSER.commandopen: true
+            portables.DISPENSER.usen: true
     portables.DROPPER.*:
         description: Gives all Dropper permissions
         children:
             portables.DROPPER.link: true
-            portables.DROPPER.invshortcut: true
-            portables.DROPPER.powertool: true
-            portables.DROPPER.commandlink: true
-            portables.DROPPER.commandopen: true
+            portables.DROPPER.use: true
     portables.ENCHANTMENT_TABLE.*:
         description: Gives all Enchantment Table permissions
         children:
             portables.ENCHANTMENT_TABLE.link: true
-            portables.ENCHANTMENT_TABLE.invshortcut: true
-            portables.ENCHANTMENT_TABLE.powertool: true
-            portables.ENCHANTMENT_TABLE.commandlink: true
-            portables.ENCHANTMENT_TABLE.commandopen: true
+            portables.ENCHANTMENT_TABLE.use: true
     portables.ENDER_CHEST.*:
         description: Gives all Ender Chest permissions
         children:
             portables.ENDER_CHEST.command: true
-            portables.ENDER_CHEST.invshortcut: true
-            portables.ENDER_CHEST.powertool: true
-            portables.ENDER_CHEST.commandopen: true
+            portables.ENDER_CHEST.use: true
     portables.FURNACE.*:
         description: Gives all Furnace permissions
         children:
             portables.FURNACE.link: true
-            portables.FURNACE.invshortcut: true
-            portables.FURNACE.powertool: true
-            portables.FURNACE.commandlink: true
-            portables.FURNACE.commandopen: true
+            portables.FURNACE.use: true
     portables.HOPPER.*:
         description: Gives all Hopper permissions
         children:
             portables.HOPPER.link: true
-            portables.HOPPER.invshortcut: true
-            portables.HOPPER.powertool: true
-            portables.HOPPER.commandlink: true
-            portables.HOPPER.commandopen: true
+            portables.HOPPER.use: true
     portables.WORKBENCH.*:
         description: Gives all Workbench permissions
         children:
             portables.WORKBENCH.command: true
-            portables.WORKBENCH.invshortcut: true
-            portables.WORKBENCH.powertool: true
-            portables.WORKBENCH.commandopen: true
+            portables.WORKBENCH.use: true
     portables.customize.*:
         description: Gives all Item Customization permissions
         children:
@@ -195,10 +133,9 @@ permissions:
             portables.customize.FURNACE: true
             portables.customize.HOPPER: true
             portables.customize.WORKBENCH: true
-    portables.bypasslock:
+    portables.admin.bypasslock:
         description: Bypass Lock plugin protection
-        #default: op
-    portables.invsee.command:
-        description: Access to inventory see command.
-    portables.modifyother:
-        description: Permission to modify other players inventories.
+        default: op
+    portables.admin.reload:
+        description: Reload configuration
+        default: op

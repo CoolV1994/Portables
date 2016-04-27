@@ -14,9 +14,12 @@ public class WorkBenchCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			if (args.length == 1) {
-				Player player = Bukkit.getPlayer(args[0]);
-				if (player != null)
-					player.openWorkbench(null, true);
+				Player target = Bukkit.getPlayer(args[0]);
+                                if (target == null) {
+                                    sender.sendMessage("Player is offline or invalid username.");
+                                    return true;
+                                }
+                                target.openWorkbench(null, true);
 				return true;
 			}
 			return false;

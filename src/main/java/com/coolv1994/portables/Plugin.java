@@ -9,13 +9,11 @@ import com.coolv1994.portables.listeners.LinkBlockListener;
 import com.coolv1994.portables.listeners.NameItemListener;
 import com.coolv1994.portables.listeners.PowerToolListener;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,6 +39,14 @@ public class Plugin extends JavaPlugin {
 	public static List<Material> getAltPortables(Material item) {
 		return altPortables.get(item);
 	}
+
+        public void reload() {
+            reloadConfig();
+            loadPortableItems();
+            loadWorlds();
+            setLockPlugin();
+            addCraftingRecipes();
+        }
 
 	private void loadPortableItems() {
             portables = new ArrayList<Material>();
@@ -89,13 +95,6 @@ public class Plugin extends JavaPlugin {
             getLogger().log(Level.INFO, "Portable Items: {0}", portables);
 	}
 
-        private void loadMessages() {
-            InvManager.blockLocked = ChatColor.translateAlternateColorCodes('&',
-                    getConfig().getString("blockLocked"));
-            InvManager.blockMissing = ChatColor.translateAlternateColorCodes('&',
-                    getConfig().getString("blockMissing"));
-        }
-
 	private void setLockPlugin() {
 		String plugin = getConfig().getString("lockPlugin").toLowerCase();
 		if (plugin.equals("deadbolt")) {
@@ -119,13 +118,9 @@ public class Plugin extends JavaPlugin {
 
 	private void enableCommands() {
 		getCommand("enderchest").setExecutor(new EnderChestCommand());
-		if (!getConfig().getBoolean("portables.ENDER_CHEST.CommandPerm"))
-			getCommand("enderchest").setPermission(null);
 		getCommand("portable").setExecutor(new PortableCommand());
 		getCommand("linkportable").setExecutor(new LinkCommand());
 		getCommand("workbench").setExecutor(new WorkBenchCommand());
-		if (!getConfig().getBoolean("portables.WORKBENCH.CommandPerm"))
-			getCommand("workbench").setPermission(null);
 	}
 
 	private void enableListeners() {
@@ -154,14 +149,9 @@ public class Plugin extends JavaPlugin {
 	public void onEnable() {
             instance = this;
             saveDefaultConfig();
-            reloadConfig();
-            loadMessages();
-            loadPortableItems();
-            loadWorlds();
-            setLockPlugin();
+            reload();
             enableCommands();
             enableListeners();
-            addCraftingRecipes();
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public class EnderChestCommand implements CommandExecutor {
 			if (args.length == 1) {
 				Player target = Bukkit.getPlayer(args[0]);
                                 if (target == null) {
-                                    sender.sendMessage("Player is offline.");
+                                    sender.sendMessage("Player is offline or invalid username.");
                                     return true;
                                 }
                                 target.openInventory(target.getEnderChest());

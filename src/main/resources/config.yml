@@ -4,29 +4,11 @@
 # Values: None, Deadbolt, LWC, Lockette, LockettePro
 lockPlugin: none
 #
-# No access to chest message
-blockLocked: '&cYou are not authorized to access this {block}.'
-# The host block is missing message
-blockMissing: '&4Host {block} is missing or destroyed.'
-# This is not a Portable item
-invalidItem: 'This is not portable {block}.'
-# This item is already linked
-alreadyLinked: 'This {block} has already been linked.'
-# Too far from block
-outOfRange: 'You need to be within {range} blocks from host block.'
-# World disabled message
-worldNotAllowed: 'You are not alowed to use Portable items in this world.'
-hostWorldNotAllowed: 'You are not allowed to remotly access blocks in this world.'
-# Location in lore is invalid
-invalidLocation: 'Invalid host location.'
-# No permission messages
-noPermLink: '&cYou do not have permission to link {block}.'
-noPermInvShortcut: '&cYou do not have permission use {block} shortcut.'
-noPermPowerTool: '&cYou do not have permission use {block} tool.'
-noPermCommand: '&cYou do not have permission use {block} command.'
-#
 # Player has to be within X blocks from host block. -1 to disable.
 range: 350
+#
+# Portable items can only be linked to blocks in that world?
+forceSameWorld: false
 #
 # Should the list below be worlds to disallow portable items in?
 useWorldBlackList: true
@@ -46,28 +28,31 @@ hostWorlds:
 #- world_nether
 #- world_the_end
 #
+#
+# Material List
+# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+#
+# Enchantment List
+# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html
+#
+#
 # Portable Items
 portables:
 #  # Config Explination
 #  # Material of item being used. (Item in hand)
-#  MATERIAL_ENUM:
+#  ITEM_MATERIAL:
 #    # Open on left click with item
 #    PowerTool: true
-#    PowerToolPerm: true
 #    # Open when right click item in inventory
 #    InvShortcut: true
-#    InvShortcutPerm: true
 #    # Link by left clicking with item
 #    Link: true
-#    LinkPerm: true
 #    # Can portable item be crafted?
 #    Craftable: true
-#    # Is this portable only usaable in its crafted form?
+#    # Is this portable only usable in its crafted form?
 #    CraftOnly: true
 #    # Crafting recipe. Use definitions below
 #    Recipe: XYX,YAY,XYX
-#    # Localized item name
-#    Name: Portable Item
 #    # Item name when crafted. Not linked yet (if applicable)
 #    CraftedName: '&4Unlinked Portable Item'
 #    # Item name when linked
@@ -82,15 +67,11 @@ portables:
   # Brewing Stand
   BREWING_STAND_ITEM:
     PowerTool: true
-    PowerToolPerm: true
     InvShortcut: true
-    InvShortcutPerm: true
     Link: true
-    LinkPerm: true
     Craftable: true
     CraftOnly: true
     Recipe: XYX,YBY,XYX
-    Name: Brewing Stand
     CraftedName: '&4Unlinked Brewing Stand'
     LinkedName: '&aPortable Brewing Stand'
     Lore: 'Left click a placed{N}Brewing Stand to link.'
@@ -100,15 +81,11 @@ portables:
   # Chest
   CHEST:
     PowerTool: true
-    PowerToolPerm: true
     InvShortcut: true
-    InvShortcutPerm: true
     Link: true
-    LinkPerm: true
     Craftable: true
     CraftOnly: true
     Recipe: XYX,YCY,XYX
-    Name: Chest
     CraftedName: '&4Unlinked Chest'
     LinkedName: '&aPortable Chest'
     Lore: 'Left click a placed{N}Chest to link.'
@@ -118,15 +95,11 @@ portables:
   # Dispenser
   DISPENSER:
     PowerTool: true
-    PowerToolPerm: true
     InvShortcut: true
-    InvShortcutPerm: true
     Link: true
-    LinkPerm: true
     Craftable: true
     CraftOnly: true
     Recipe: XYX,YDY,XYX
-    Name: Dispenser
     CraftedName: '&4Unlinked Dispenser'
     LinkedName: '&aPortable Dispenser'
     Lore: 'Left click a placed{N}Dispenser to link.'
@@ -134,15 +107,11 @@ portables:
   # Dropper
   DROPPER:
     PowerTool: false
-    PowerToolPerm: true
     InvShortcut: false
-    InvShortcutPerm: true
     Link: false
-    LinkPerm: true
     Craftable: false
     CraftOnly: true
     Recipe: XYX,YJY,XYX
-    Name: Dropper
     CraftedName: '&4Unlinked Dropper'
     LinkedName: '&aPortable Dropper'
     Lore: 'Left click a placed{N}Dropper to link.'
@@ -150,15 +119,11 @@ portables:
   # Enchantment Table
   ENCHANTMENT_TABLE:
     PowerTool: true
-    PowerToolPerm: true
     InvShortcut: true
-    InvShortcutPerm: true
     Link: true
-    LinkPerm: true
     Craftable: true
     CraftOnly: true
     Recipe: XYX,YGY,XYX
-    Name: Enchantment Table
     CraftedName: '&4Unlinked Enchantment Table'
     LinkedName: '&aPortable Enchantment Table'
     Lore: 'Left click a placed{N}Enchantment Table to link.'
@@ -166,29 +131,21 @@ portables:
   # EnderChest
   ENDER_CHEST:
     PowerTool: true
-    PowerToolPerm: true
     InvShortcut: true
-    InvShortcutPerm: true
-    CommandPerm: true
     Craftable: true
     CraftOnly: true
     Recipe: XYX,YEY,XYX
-    Name: Ender Chest
     CraftedName: '&6Portable Ender Chest'
     Lore: 'Right click with{N}inventory open to{N}open Ender Chest.'
     Enchantments: DURABILITY:1
   # Furnace
   FURNACE:
     PowerTool: true
-    PowerToolPerm: true
     InvShortcut: true
-    InvShortcutPerm: true
     Link: true
-    LinkPerm: true
     Craftable: true
     CraftOnly: true
     Recipe: XYX,YFY,XYX
-    Name: Furnace
     CraftedName: '&4Unlinked Furnace'
     LinkedName: '&aPortable Furnace'
     Lore: 'Left click a placed{N}Furnace to link.'
@@ -196,15 +153,11 @@ portables:
   # Hopper
   HOPPER:
     PowerTool: true
-    PowerToolPerm: true
     InvShortcut: true
-    InvShortcutPerm: true
     Link: true
-    LinkPerm: true
     Craftable: true
     CraftOnly: true
     Recipe: XYX,YHY,XYX
-    Name: Hopper
     CraftedName: '&4Unlinked Hopper'
     LinkedName: '&aPortable Hopper'
     Lore: 'Left click a placed{N}Hopper to link.'
@@ -212,14 +165,10 @@ portables:
   # Workbench (Crafting Table)
   WORKBENCH:
     PowerTool: true
-    PowerToolPerm: true
     InvShortcut: true
-    InvShortcutPerm: true
-    CommandPerm: true
     Craftable: true
     CraftOnly: false
     Recipe: XYX,YIY,XYX
-    Name: Crafting Table
     CraftedName: '&6Portable Crafting Table'
     Lore: 'Right click with{N}inventory open to{N}start crafting.'
     Enchantments: DURABILITY:1
@@ -237,3 +186,28 @@ recipeDefinitions:
   J: DROPPER
   X: REDSTONE_BLOCK
   Y: LEATHER
+#
+# Phrases
+#
+# No access to chest message
+blockLocked: '&cYou are not authorized to access this {block}.'
+# The host block is missing message
+blockMissing: '&4Host {block} is missing or destroyed.'
+# This is not a Portable item
+invalidItem: 'This is not portable {block}.'
+# This item is already linked
+alreadyLinked: 'This {block} has already been linked.'
+# Too far from block
+outOfRange: 'You need to be within {range} blocks from host block.'
+# World disabled message
+worldNotAllowed: 'You are not alowed to use Portable items in this world.'
+hostWorldNotAllowed: 'You are not allowed to remotly access blocks in this world.'
+worldNotSame: 'You must use this item in the same world as it''s hosted.'
+# Location in lore is invalid
+invalidLocation: 'Invalid host location.'
+# No permission messages
+noPermLink: '&cYou do not have permission to link {block}.'
+noPermUse: '&cYou do not have permission use portable {block}.'
+# Command messages
+noItemInHand: 'You must have a Portables item in your hand.'
+notLookingAtBlock: 'You must be looking at a valid host block.'

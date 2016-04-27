@@ -5,7 +5,6 @@ import com.coolv1994.portables.Plugin;
 import com.coolv1994.portables.Utils;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -23,7 +22,7 @@ public class PortableCommand implements CommandExecutor {
 		if (!(sender instanceof Player)) {
 			Player player = Bukkit.getPlayerExact(args[0]);
 			if (player == null) {
-				sender.sendMessage("Player is invalid or offline.");
+				sender.sendMessage("Player is offline or invalid username.");
 				return true;
 			}
 			if (args.length == 6) {
@@ -36,7 +35,7 @@ public class PortableCommand implements CommandExecutor {
                                 player.openInventory(player.getEnderChest());
                                 return true;
                             }
-                            InvManager.openItem(hand,
+                            InvManager.openInventory(hand,
                                     player, new Location(
                                             Bukkit.getWorld(args[2]),
                                             Double.parseDouble(args[3]),
@@ -50,65 +49,27 @@ public class PortableCommand implements CommandExecutor {
 
 		Player player = (Player) sender;
 
+                if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+                    if (player.hasPermission("portables.admin.reload")) {
+                        Plugin.getInstance().reload();
+                        player.sendMessage("[Portables] Config reloaded.");
+                    } else {
+                        player.sendMessage("[Portables] You do not have permission to reload config.");
+                    }
+                    return true;
+                }
+
                 if (player.getItemInHand() == null) {
-                    player.sendMessage("You must have a portable item in your hand.");
+                    player.sendMessage(Utils.getPhrase("noItemInHand"));
                     return true;
                 }
 
-		Material hand = player.getItemInHand().getType();
-                if (!Plugin.getPortables().contains(hand)) {
-                    player.sendMessage("This is not a portable item.");
+                if (!Plugin.getPortables().contains(player.getItemInHand().getType())) {
+                    player.sendMessage(Utils.getPhraseBlock("invalidItem", player.getItemInHand().getType()));
                     return true;
                 }
 
-                if (Utils.canSkip(player.getItemInHand()))
-                    return true;
-
-                if (Utils.doesNotHavePermission(player, hand.name(), 2)) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            Plugin.getInstance().getConfig().getString("noPermCommand"))
-                            .replace("{block}", Plugin.getInstance().getConfig()
-                                    .getString("portables." + hand.name() + ".Name")));
-                    return true;
-                }
-                if (!Utils.canUseInWorld(player.getWorld())) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            Plugin.getInstance().getConfig().getString("worldNotAllowed"))
-                            .replace("{block}", Plugin.getInstance().getConfig()
-                                    .getString("portables." + hand.name() + ".Name")));
-                    return true;
-                }
-
-                if (Material.WORKBENCH.equals(hand)) {
-                    player.openWorkbench(null, true);
-                    return true;
-                }
-                if (Material.ENDER_CHEST.equals(hand)) {
-                    player.openInventory(player.getEnderChest());
-                    return true;
-                }
-
-                Location location = InvManager.loreToLoc(player.getItemInHand().getItemMeta());
-                if (location == null) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            Plugin.getInstance().getConfig().getString("invalidLocation")));
-                    return true;
-                }
-                if (!Utils.canHostInWorld(location.getWorld())) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            Plugin.getInstance().getConfig().getString("hostWorldNotAllowed"))
-                            .replace("{block}", Plugin.getInstance().getConfig()
-                                    .getString("portables." + hand.name() + ".Name")));
-                    return true;
-                }
-                if (!Utils.isInRange(player.getLocation(), location)) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            Plugin.getInstance().getConfig().getString("outOfRange"))
-                            .replace("{range}", String.valueOf(Utils.range)));
-                    return true;
-                }
-
-                InvManager.openItem(hand, player, location);
+                InvManager.open(player, player.getItemInHand(), null);
 		return true;
 	}
 }

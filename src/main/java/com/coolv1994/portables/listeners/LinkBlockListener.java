@@ -2,9 +2,7 @@ package com.coolv1994.portables.listeners;
 
 import com.coolv1994.portables.InvManager;
 import com.coolv1994.portables.Plugin;
-import com.coolv1994.portables.Utils;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,51 +36,9 @@ public class LinkBlockListener implements Listener {
 		if (event.getClickedBlock() == null)
 			return;
 
-		Material hand = event.getItem().getType();
-		Material clicked = event.getClickedBlock().getType();
-
                 if (!usePortables.contains(event.getMaterial())) {
                     return;
                 }
-                if (!(clicked.equals(hand)||
-                        Plugin.getAltPortables(hand).contains(clicked))) {
-                    return;
-                }
-                if (Utils.canSkipLink(event.getItem())) {
-                    event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            Plugin.getInstance().getConfig().getString("invalidItem"))
-                            .replace("{block}", Plugin.getInstance().getConfig()
-                                    .getString("portables." + event.getMaterial().name() + ".Name")));
-                    return;
-                }
-                if (Utils.doesNotHavePermission(event.getPlayer(), event.getMaterial().name(), 1)) {
-                    event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            Plugin.getInstance().getConfig().getString("noPermLink"))
-                            .replace("{block}", Plugin.getInstance().getConfig()
-                                    .getString("portables." + event.getMaterial().name() + ".Name")));
-                    return;
-                }
-                if (!Utils.canUseInWorld(event.getPlayer().getWorld())) {
-                    event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            Plugin.getInstance().getConfig().getString("worldNotAllowed"))
-                            .replace("{block}", Plugin.getInstance().getConfig()
-                                    .getString("portables." + event.getMaterial().name() + ".Name")));
-                    return;
-                }
-                if (!Utils.canHostInWorld(event.getClickedBlock().getWorld())) {
-                    event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            Plugin.getInstance().getConfig().getString("hostWorldNotAllowed"))
-                            .replace("{block}", Plugin.getInstance().getConfig()
-                                    .getString("portables." + hand.name() + ".Name")));
-                    return;
-                }
-                if (Utils.isNotAuthorized(event.getPlayer(), event.getClickedBlock())) {
-                    event.getPlayer().sendMessage(InvManager.blockLocked
-                            .replace("{block}", Plugin.getInstance().getConfig()
-                                    .getString("portables." + event.getMaterial().name() + ".Name")));
-                    return;
-                }
-                event.setCancelled(true);
-                InvManager.locToLore(event.getClickedBlock().getLocation(), event.getItem());
+                InvManager.link(event.getPlayer(), event.getItem(), event.getClickedBlock(), null);
 	}
 }

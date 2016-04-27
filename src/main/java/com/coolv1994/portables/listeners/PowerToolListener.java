@@ -2,10 +2,7 @@ package com.coolv1994.portables.listeners;
 
 import com.coolv1994.portables.InvManager;
 import com.coolv1994.portables.Plugin;
-import com.coolv1994.portables.Utils;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -42,56 +39,6 @@ public class PowerToolListener implements Listener {
             if (!usePortables.contains(event.getMaterial())) {
                 return;
             }
-            if (Utils.canSkip(event.getItem())) {
-                return;
-            }
-            if (Utils.doesNotHavePermission(event.getPlayer(), event.getMaterial().name(), 2)) {
-                event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        Plugin.getInstance().getConfig().getString("noPermPowerTool"))
-                        .replace("{block}", Plugin.getInstance().getConfig()
-                                .getString("portables." + event.getMaterial().name() + ".Name")));
-                return;
-            }
-            if (!Utils.canUseInWorld(event.getPlayer().getWorld())) {
-                event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        Plugin.getInstance().getConfig().getString("worldNotAllowed"))
-                        .replace("{block}", Plugin.getInstance().getConfig()
-                                .getString("portables." + event.getMaterial().name() + ".Name")));
-                return;
-            }
-
-            if (Material.WORKBENCH.equals(event.getMaterial())) {
-                event.setCancelled(true);
-                event.getPlayer().openWorkbench(null, true);
-                return;
-            }
-            if (Material.ENDER_CHEST.equals(event.getMaterial())) {
-                event.setCancelled(true);
-                event.getPlayer().openInventory(event.getPlayer().getEnderChest());
-                return;
-            }
-
-            Location location = InvManager.loreToLoc(event.getItem().getItemMeta());
-            if (location == null) {
-                event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        Plugin.getInstance().getConfig().getString("invalidLocation")));
-                return;
-            }
-            if (!Utils.canHostInWorld(location.getWorld())) {
-                event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        Plugin.getInstance().getConfig().getString("hostWorldNotAllowed"))
-                        .replace("{block}", Plugin.getInstance().getConfig()
-                                .getString("portables." + event.getMaterial().name() + ".Name")));
-                return;
-            }
-            if (!Utils.isInRange(event.getPlayer().getLocation(), location)) {
-                event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        Plugin.getInstance().getConfig().getString("outOfRange"))
-                        .replace("{range}", String.valueOf(Utils.range)));
-                return;
-            }
-
-            event.setCancelled(true);
-            InvManager.openItem(event.getMaterial(), event.getPlayer(), location);
+            InvManager.open(event.getPlayer(), event.getItem(), event);
 	}
 }
