@@ -24,7 +24,7 @@ public class NameItemListener implements Listener {
         if (Utils.canSkip(event.getItem())) {
             return;
         }
-        if (!event.getPlayer().hasPermission("portables.customize." + event.getItem().getType().name())) {
+        if (!event.getPlayer().hasPermission("portables." + event.getItem().getType().name() + ".customize")) {
             event.getPlayer().sendMessage("[Portables] You do not have permission to rename this item.");
             event.setCancelled(true);
         }
@@ -38,7 +38,7 @@ public class NameItemListener implements Listener {
         if (Utils.canSkip(event.getItem())) {
             return;
         }
-        if (!event.getPlayer().hasPermission("portables.customize." + event.getItem().getType().name())) {
+        if (!event.getPlayer().hasPermission("portables." + event.getItem().getType().name() + ".customize")) {
             event.getPlayer().sendMessage("[Portables] You do not have permission to set lore on this item.");
             event.setCancelled(true);
             return;

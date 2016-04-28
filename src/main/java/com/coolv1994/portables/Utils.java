@@ -12,9 +12,9 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.NumberConversions;
 
 import java.util.List;
-import org.bukkit.util.NumberConversions;
 
 /**
  *
@@ -27,35 +27,6 @@ public class Utils {
     public static boolean hostWorldBlackList;
     public static List<String> hostWorlds;
     public static int range = 0;
-
-    public static boolean doesNotHavePermission(Player player, String item, int action) {
-        // Link Item
-        if (action == 1) {
-            return Plugin.getInstance().getConfig().getBoolean("permLink") &&
-                    !player.hasPermission("portables." + item + ".link");
-        }
-        // PowerTool
-        if (action == 2) {
-            return Plugin.getInstance().getConfig().getBoolean("permPowerTool") &&
-                    !player.hasPermission("portables." + item + ".powertool");
-        }
-        // Inv Shortcut
-        if (action == 3) {
-            return Plugin.getInstance().getConfig().getBoolean("permInvShortcut") &&
-                    !player.hasPermission("portables." + item + ".invshortcut");
-        }
-        // Command
-        if (action == 4) {
-            return Plugin.getInstance().getConfig().getBoolean("permCommand") &&
-                    !player.hasPermission("portables." + item + ".command");
-        }
-        // Command Link
-        if (action == 5) {
-            return Plugin.getInstance().getConfig().getBoolean("permLinkCommand") &&
-                    !player.hasPermission("portables." + item + ".linkcommand");
-        }
-        return true;
-    }
 
     public static boolean canUseInWorld(World world) {
         if (useWorldBlackList) {
@@ -155,5 +126,4 @@ public class Utils {
     public static String getPhraseBlock(String id, Material item) {
         return getPhrase(id).replace("{block}", item.name());
     }
-
 }

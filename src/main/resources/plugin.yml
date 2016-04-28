@@ -7,13 +7,13 @@ softdepend: [NameItem]
 commands:
   enderchest:
     aliases: [ec,es,echest,endersee]
-    description: Open your ender CHEST.
+    description: Open your Ender Chest.
     usage: /<command>
     permission: portables.ENDER_CHEST.command
     permission-message: You do not have permission to use this command.
   portable:
     aliases: [p,port,open,portopen]
-    description: Open the selected Portable item
+    description: Open the selected Portable item.
     usage: /<command>
     permission: portables.portable.command
     permission-message: You do not have permission to use this command.
@@ -29,33 +29,24 @@ commands:
     usage: /<command>
     permission: portables.WORKBENCH.command
     permission-message: You do not have permission to use this command.
-  invsee:
-    aliases: [is,invview,inventorysee]
-    description: Open a players inventory.
-    usage: /<command> [player]
-    permission: portables.invsee.command
-    permission-message: You do not have permission to use this command.
 permissions:
     portables.*:
         description: Gives all Portables permissions
+        default: op
         children:
-            portables.BREWING_STAND_ITEM.*: true
-            portables.CHEST.*: true
-            portables.DISPENSER.*: true
-            portables.DROPPER.*: true
-            portables.ENCHANTMENT_TABLE.*: true
-            portables.ENDER_CHEST.*: true
-            portables.FURNACE.*: true
-            portables.HOPPER.*: true
-            portables.WORKBENCH.*: true
+            portables.commands.*: true
+            portables.use.*: true
+            portables.link.*: true
             portables.customize.*: true
-    portables.commands:
-        description: Gives all Portables permissions
+    portables.commands.*:
+        description: Gives all Command permissions
         children:
+            portables.portable.command: true
+            portables.link.command: true
             portables.ENDER_CHEST.command: true
             portables.WORKBENCH.command: true
-    portables.useall:
-        description: Gives all PowerTools permissions
+    portables.use.*:
+        description: Gives all Using permissions
         children:
             portables.BREWING_STAND_ITEM.use: true
             portables.CHEST.use: true
@@ -66,7 +57,7 @@ permissions:
             portables.FURNACE.use: true
             portables.HOPPER.use: true
             portables.WORKBENCH.use: true
-    portables.linkall:
+    portables.link.*:
         description: Gives all Linking permissions
         children:
             portables.BREWING_STAND_ITEM.link: true
@@ -76,63 +67,72 @@ permissions:
             portables.ENCHANTMENT_TABLE.link: true
             portables.FURNACE.link: true
             portables.HOPPER.link: true
+    portables.customize.*:
+        description: Gives all Customization permissions
+        children:
+            portables.BREWING_STAND_ITEM.customize: true
+            portables.CHEST.customize: true
+            portables.DISPENSER.customize: true
+            portables.DROPPER.customize: true
+            portables.ENCHANTMENT_TABLE.customize: true
+            portables.ENDER_CHEST.customize: true
+            portables.FURNACE.customize: true
+            portables.HOPPER.customize: true
+            portables.WORKBENCH.customize: true
     portables.BREWING_STAND_ITEM.*:
         description: Gives all Brewing Stand permissions
         children:
             portables.BREWING_STAND_ITEM.link: true
             portables.BREWING_STAND_ITEM.use: true
+            portables.BREWING_STAND_ITEM.customize: true
     portables.CHEST.*:
         description: Gives all Chest permissions
         children:
             portables.CHEST.link: true
             portables.CHEST.use: true
+            portables.CHEST.customize: true
     portables.DISPENSER.*:
         description: Gives all Dispenser permissions
         children:
             portables.DISPENSER.link: true
-            portables.DISPENSER.usen: true
+            portables.DISPENSER.use: true
+            portables.DISPENSER.customize: true
     portables.DROPPER.*:
         description: Gives all Dropper permissions
         children:
             portables.DROPPER.link: true
             portables.DROPPER.use: true
+            portables.DROPPER.customize: true
     portables.ENCHANTMENT_TABLE.*:
         description: Gives all Enchantment Table permissions
         children:
             portables.ENCHANTMENT_TABLE.link: true
             portables.ENCHANTMENT_TABLE.use: true
+            portables.ENCHANTMENT_TABLE.customize: true
     portables.ENDER_CHEST.*:
         description: Gives all Ender Chest permissions
         children:
             portables.ENDER_CHEST.command: true
             portables.ENDER_CHEST.use: true
+            portables.ENDER_CHEST.customize: true
     portables.FURNACE.*:
         description: Gives all Furnace permissions
         children:
             portables.FURNACE.link: true
             portables.FURNACE.use: true
+            portables.FURNACE.customize: true
     portables.HOPPER.*:
         description: Gives all Hopper permissions
         children:
             portables.HOPPER.link: true
             portables.HOPPER.use: true
+            portables.HOPPER.customize: true
     portables.WORKBENCH.*:
         description: Gives all Workbench permissions
         children:
             portables.WORKBENCH.command: true
             portables.WORKBENCH.use: true
-    portables.customize.*:
-        description: Gives all Item Customization permissions
-        children:
-            portables.customize.BREWING_STAND_ITEM: true
-            portables.customize.CHEST: true
-            portables.customize.DISPENSER: true
-            portables.customize.DROPPER: true
-            portables.customize.ENCHANTMENT_TABLE: true
-            portables.customize.ENDER_CHEST: true
-            portables.customize.FURNACE: true
-            portables.customize.HOPPER: true
-            portables.customize.WORKBENCH: true
+            portables.WORKBENCH.customize: true
     portables.admin.bypasslock:
         description: Bypass Lock plugin protection
         default: op

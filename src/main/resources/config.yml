@@ -1,5 +1,11 @@
 # Portables Configuration
 #
+# Material List
+# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+#
+# Enchantment List
+# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html
+#
 # Chest Lock Plugin
 # Values: None, Deadbolt, LWC, Lockette, LockettePro
 lockPlugin: none
@@ -27,14 +33,6 @@ hostWorlds:
 #- world
 #- world_nether
 #- world_the_end
-#
-#
-# Material List
-# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
-#
-# Enchantment List
-# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html
-#
 #
 # Portable Items
 portables:
@@ -186,6 +184,7 @@ recipeDefinitions:
   J: DROPPER
   X: REDSTONE_BLOCK
   Y: LEATHER
+#
 #
 # Phrases
 #
